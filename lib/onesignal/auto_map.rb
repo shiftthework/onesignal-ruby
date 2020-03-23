@@ -4,10 +4,14 @@ module OneSignal
   module AutoMap
     def create_readers **attributes
       attributes.keys.each do |k|
-        self.class.define_method k do
+        create_method k do
           attributes[k]
         end
       end
+    end
+
+    def create_method(name, &block)
+      self.class.send(:define_method, name, &block)
     end
   end
 end

@@ -36,13 +36,13 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '~> 1.16'
   spec.add_development_dependency 'dotenv', '~> 2.5'
   spec.add_development_dependency 'factory_bot', '~> 4.11'
-  spec.add_development_dependency 'rake', '~> 10.0'
+  spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rspec_junit_formatter', '~> 0.4'
   spec.add_development_dependency 'vcr', '~> 4.0', '>= 4.0.0'
   spec.add_development_dependency 'webmock', '~> 3.4'
 
-  spec.add_runtime_dependency 'activesupport', '~> 5.0', '>= 5.0.0'
+  spec.add_runtime_dependency 'activesupport', '>= 4.2.0', '< 7'
   spec.add_runtime_dependency 'faraday', '~> 0.15', '>= 0.15.4'
   spec.add_runtime_dependency 'simple_command', '~> 0', '>= 0.0.9'
 end

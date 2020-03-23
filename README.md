@@ -20,6 +20,10 @@ Or install it yourself as:
 
     $ gem install onesignal-ruby
 
+    # For Rails 6 compatibility:
+    $ gem install onesignal-ruby, '~> 0.4'
+
+
 ## Configuration
 OneSignal requires an App ID and an API Key, which can be found
 on the OneSignal dashboard.
@@ -112,6 +116,17 @@ attachments = OneSignal::Attachments.new(
 OneSignal::Notification.new(attachments: attachments)
 ```
 
+### Buttons
+You can add interactive buttons to a notification. See https://documentation.onesignal.com/docs/action-buttons for more details.
+
+```ruby
+buttons = OneSignal::Buttons.new(
+    buttons: [{id: 'option_a', text: 'Option A' }, {id: 'option_b', text: 'Option B' }]
+)
+
+OneSignal::Notification.new(buttons: buttons)
+```
+
 ### Fetch players
 You can fetch all players and devices with a simple method.
 
@@ -159,7 +174,7 @@ The operator methods (`#lesser_than`, `#greater_than`, `#equals`, `#not_equals`)
 filters = [
   OneSignal::Filter.tag('userId') == 5,
   OneSignal::Filter.session_count < 2,
-  OneSignal::Filter.language != 'en'  
+  OneSignal::Filter.language != 'en'
 ]
 
 OneSignal::Notification.new(filters: filters)

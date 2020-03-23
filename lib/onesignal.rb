@@ -41,6 +41,13 @@ module OneSignal
       JSON.parse(fetched.body)['players'].map { |player| Responses::Player.from_json player }
     end
 
+    def update_player player_id, body
+      return unless OneSignal.config.active
+
+      updated = Commands::UpdatePlayer.call player_id, body
+      Responses::Update.from_json updated.body
+    end
+
     def csv_export params = {}
       return unless OneSignal.config.active
 

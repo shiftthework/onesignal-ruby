@@ -35,10 +35,14 @@ module OneSignal
       get "players/#{player_id}"
     end
 
+    def update_player player_id, body
+      put "players/#{player_id}", body
+    end
+
     def csv_export extra_fields: nil, last_active_since: nil, segment_name: nil
-      post "players/csv_export?app_id=#{@app_id}", 
-        extra_fields: extra_fields, 
-        last_active_since: last_active_since&.to_i&.to_s, 
+      post "players/csv_export?app_id=#{@app_id}",
+        extra_fields: extra_fields,
+        last_active_since: last_active_since&.to_i&.to_s,
         segment_name: segment_name
     end
 
@@ -52,6 +56,17 @@ module OneSignal
 
     def post url, body
       res = @conn.post do |req|
+        req.url url
+        req.body = create_body(body).to_json
+        req.headers['Content-Type'] = 'application/json'
+        req.headers['Authorization'] = "Basic #{@api_key}"
+      end
+
+      handle_errors res
+    end
+
+    def put url, body
+      res = @conn.put do |req|
         req.url url
         req.body = create_body(body).to_json
         req.headers['Content-Type'] = 'application/json'

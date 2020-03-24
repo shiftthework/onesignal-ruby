@@ -130,6 +130,18 @@ module OneSignal
         build
       end
 
+      def time_elapsed_gt value
+        @b_relation = 'time_elapsed_gt'
+        @b_value    = value.to_s
+        build
+      end
+
+      def time_elapsed_lt value
+        @b_relation = 'time_elapsed_lt'
+        @b_value    = value.to_s
+        build
+      end
+
       private
 
       def build

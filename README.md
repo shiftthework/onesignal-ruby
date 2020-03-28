@@ -4,6 +4,10 @@
 
 A simple, pure Ruby client to the [OneSignal](https://onesignal.com/apps/22bc6dec-5150-4d6d-8628-377259d2dd14/segments) API.
 
+This is a fork of `mikamai/onesignal-ruby` with added functionality.
+
+Please note that not all the added functionality is mentioned here.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -76,6 +80,8 @@ Then send it.
  # => #<OneSignal::Responses::Notification> the created notification
 ```
 
+Notifications also support `delayed_option`, `delivery_time_of_day`, `ttl`, and `collabse_id` parameters.
+
 ### Fetch a notification
 You can fetch an existing notification given its ID.
 ```ruby
@@ -107,6 +113,7 @@ You can add files, data or images to a notification, or an external URL to open.
 attachments = OneSignal::Attachments.new(
       data:            { 'test' => 'test' },
       url:             'http://example.com',
+      app_url:         'myawesoneapp//example.com',
       ios_attachments: { 'something' => 'drawable resource name or URL.' },
       android_picture: 'drawable resource name or URL.',
       amazon_picture:  'drawable resource name or URL.',
@@ -141,6 +148,13 @@ player = OneSignal.fetch_player(player_id)
 # => #<OneSignal::Responses::Player>
 ```
 
+### Update players
+You can update the attributes of a player by its ID.
+
+```ruby
+players = OneSignal.update_player(player_id, {external_user_id: 55, tags: {first_name: "Max"}})
+```
+
 ### Filters
 
 Filters can be created with a simple DSL. It closely matches the [JSON reference](https://documentation.onesignal.com/reference#section-send-to-users-based-on-filters), with a few touches of syntax
@@ -168,6 +182,7 @@ Becomes
 ```
 
 The operator methods (`#lesser_than`, `#greater_than`, `#equals`, `#not_equals`) are also available through the following shorthands: `<`, `>`, `=`, `!=`.
+The operators `time_elabsed_gt` and `time_elabsed_lt` are also supported.
 
 **Example**
 ```ruby

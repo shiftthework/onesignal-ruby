@@ -88,7 +88,7 @@ module OneSignal
 
     def handle_errors res
       errors = JSON.parse(res.body).fetch 'errors', []
-      # raise ApiError, (errors.first || "Error code #{res.status}") if res.status > 399 || (res.status > 299 and errors.any?)
+      raise ApiError, (errors.first || "Error code #{res.status}") if res.status > 399 || (res.status > 299 and errors.any?)
 
       res
     end
